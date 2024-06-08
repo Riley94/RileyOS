@@ -17,21 +17,53 @@ This is a simple x86 32 bit operating system including the following components
 ### Install Assembler and Emulator
 
 ```bash
-sudo apt install qemu nasm
+sudo apt update
+sudo apt install qemu-system nasm build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo
 ```
 
-### Install Kernel Compiler
+### Build Cross Compiler
 
-https://github.com/lordmilko/i686-elf-tools#mac-os-x
-
-```
-brew install i386-elf-binutils
-brew install i386-elf-gcc
-brew install i386-elf-gdb
-```
+# download latest releases
+https://ftp.gnu.org/gnu/gdb/
+https://ftp.gnu.org/gnu/gcc/
+https://ftp.gnu.org/gnu/binutils/
 
 ```
-export PATH="/usr/local/Cellar/x86_64-elf-binutils/<version>/bin/:/usr/local/Cellar/x86_64-elf-gcc/<version>/bin/:/usr/local/Cellar/i386-elf-gdb/<version>/bin:$PATH"
+export PREFIX="$HOME/opt/cross"
+export TARGET=i686-elf
+export PATH="$PREFIX/bin:$PATH"
+```
+
+# Build Binutils and GDB for debugging
+```
+cd $HOME/src
+ 
+mkdir build-binutils
+cd build-binutils
+../binutils-x.y.z/configure --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
+make
+make install
+
+../gdb.x.y.z/configure --target=$TARGET --prefix="$PREFIX" --disable-werror
+make all-gdb
+make install-gdb
+```
+
+# Build GCC
+```
+cd $HOME/src
+mkdir build-gcc
+cd build-gcc
+../gcc-x.y.z/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
+make all-gcc
+make all-target-libgcc
+make install-gcc
+make install-target-libgcc
+```
+
+# Set Path to Built Compiler (If using a new shell session)
+```
+export PATH="$HOME/opt/cross/bin:$PATH"
 ```
 
 ## Usage
@@ -54,12 +86,3 @@ In GDB shell:
 - Start execution: `c`
 - Jump to next instruction: `n`
 - Print variable: `p <variable_name>`
-
-## Additional Resources
-
-- [Writing a Simple Operating System — from Scratch](https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
-- [OS Dev Wiki](https://wiki.osdev.org/Meaty_Skeleton)
-- [JamesM's Kernel Development Tutorials](https://web.archive.org/web/20160412174753/http://www.jamesmolloy.co.uk/tutorial_html/index.html)
-- [BrokenThorn Entertainment's Operating System Development Series](http://www.brokenthorn.com/Resources/OSDevIndex.html)
-- [The Little Book About OS Development](https://littleosbook.github.io/)
-- [C Memory Allocation Functions](http://www.sunshine2k.de/articles/coding/cmemalloc/cmemory.html)
