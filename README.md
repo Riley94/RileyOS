@@ -1,8 +1,8 @@
-# FrOS
+# RileyOS
 
 ## Description
 
-This is a simple x86 32 bit operating system written from scratch, based on Carlos Fenollosas [OS tutorial](https://github.com/cfenollosa/os-tutorial). It contains the following components:
+This is a simple x86 32 bit operating system including the following components
 
 1. Boot loader
 2. Operating system kernel, including
@@ -17,7 +17,7 @@ This is a simple x86 32 bit operating system written from scratch, based on Carl
 ### Install Assembler and Emulator
 
 ```bash
-brew install qemu nasm
+sudo apt install qemu nasm
 ```
 
 ### Install Kernel Compiler
