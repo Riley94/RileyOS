@@ -31,13 +31,13 @@ print16_nl:
     ret
 
 print16_cls:
-    pusha
+    pusha               ; Save all general-purpose registers on the stack
 
-    mov ah, 0x00
-    mov al, 0x03  ; text mode 80x25 16 colours
-    int 0x10
+    mov ah, 0x00        ; BIOS function to set video mode
+    mov al, 0x03        ; Mode 3: 80x25 text mode with 16 colors
+    int 0x10            ; BIOS interrupt for video services
 
-    popa
+    popa                ; Restore all general-purpose registers from the stack
     ret
 
 ; receiving the data in 'dx'

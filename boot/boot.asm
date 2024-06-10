@@ -1,7 +1,15 @@
 [org 0x7c00]
 KERNEL_OFFSET equ 0x1000 ; The same one we used when linking the kernel
 
-mov [BOOT_DRIVE], dl ; Remember that the BIOS sets us the boot drive in 'dl' on boot
+; Set up segment registers
+cli         ; Disable interrupts
+xor ax, ax  ; Clear ax
+mov ds, ax
+mov es, ax
+mov ss, ax
+sti         ; Resume interrupts
+
+mov [BOOT_DRIVE], dl ; sets up boot drive in dl
 mov bp, 0x9000
 mov sp, bp
 
