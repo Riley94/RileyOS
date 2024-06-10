@@ -1,8 +1,8 @@
 # RileyOS
-
+Originally forked from: https://github.com/FRosner/FrOS/tree/88aaf8a1aa7c3f913ad0cba2eb9df93e4913c752
 ## Description
 
-This is a simple x86 32 bit operating system including the following components
+This is a 32 bit operating system designed for an x86 cpu architecture. So far includes:
 
 1. Boot loader
 2. Operating system kernel, including
@@ -14,7 +14,7 @@ This is a simple x86 32 bit operating system including the following components
 
 ## Setup
 
-### Install Assembler and Emulator
+### Install Assembler, Emulator, and Dependencies for Cross Compiler
 
 ```bash
 sudo apt update
@@ -23,7 +23,7 @@ sudo apt install qemu-system nasm build-essential bison flex libgmp3-dev libmpc-
 
 ### Build Cross Compiler
 
-# download latest releases
+### download latest releases
 https://ftp.gnu.org/gnu/gdb/
 https://ftp.gnu.org/gnu/gcc/
 https://ftp.gnu.org/gnu/binutils/
@@ -34,7 +34,7 @@ export TARGET=i686-elf
 export PATH="$PREFIX/bin:$PATH"
 ```
 
-# Build Binutils and GDB for debugging
+### Build Binutils and GDB for debugging
 ```
 cd $HOME/src
  
@@ -49,7 +49,7 @@ make all-gdb
 make install-gdb
 ```
 
-# Build GCC
+### Build GCC
 ```
 cd $HOME/src
 mkdir build-gcc
@@ -61,7 +61,8 @@ make install-gcc
 make install-target-libgcc
 ```
 
-# Set Path to Built Compiler (If using a new shell session)
+### Set Path to Built Compiler (If using a new shell session)
+this is already done in 'make_and_run.sh'
 ```
 export PATH="$HOME/opt/cross/bin:$PATH"
 ```
@@ -71,7 +72,8 @@ export PATH="$HOME/opt/cross/bin:$PATH"
 ### Boot
 
 ```
-make run
+cd RileyOS/
+./make_and_run.sh
 ```
 
 ### Debug
