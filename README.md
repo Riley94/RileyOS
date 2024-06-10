@@ -24,8 +24,8 @@ sudo apt install qemu-system nasm build-essential bison flex libgmp3-dev libmpc-
 ### Build Cross Compiler
 
 ### download latest releases
-https://ftp.gnu.org/gnu/gdb/
-https://ftp.gnu.org/gnu/gcc/
+https://ftp.gnu.org/gnu/gdb/ \
+https://ftp.gnu.org/gnu/gcc/ \
 https://ftp.gnu.org/gnu/binutils/
 
 ```
